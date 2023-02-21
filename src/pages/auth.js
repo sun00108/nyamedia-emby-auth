@@ -11,45 +11,22 @@ export default function Auth() {
 
     const submitEmbyRegister = () => {
         axios.post( process.env.REACT_APP_EMBY_URL + '/Users/New', {
-            "Name": username
+            "Name": username,
+            "CopyFromUserId": process.env.REACT_APP_EMBY_COPY_FROM_USER_ID,
+            "UserCopyOptions": [
+                "UserPolicy"
+            ]
         }, {
             headers: {
                 "X-Emby-Token": process.env.REACT_APP_EMBY_TOKEN
             }
         }).then((res) => {
             if (res.status === 200) {
-                submitEmbyRegisterPolicy(res.data.Id)
+                window.location.replace( process.env.REACT_APP_EMBY_URL )
             } else {
                 alert("注册失败。")
             }
         })
-    }
-
-    const submitEmbyRegisterPolicy = (userID) => {
-        console.log(userID)
-        axios.post( process.env.REACT_APP_EMBY_URL + '/Users/' + userID + '/Policy', {
-            "IsHidden": true,
-            "IsHiddenRemotely": true,
-            "EnableContentDownloading": false,
-            "EnableSubtitleDownloading": false,
-            "BlockedMediaFolders": process.env.REACT_APP_EMBY_BLOCKED_MEDIA_FOLDERS
-        }, {
-            headers: {
-                "X-Emby-Token": process.env.REACT_APP_EMBY_TOKEN
-            }
-        }).then((res) => {
-            if (res.status === 204) {
-                RedirectPage()
-            } else {
-                alert("更新用户Policy失败。")
-            }
-        })
-    }
-
-    const RedirectPage = () => {
-        React.useEffect(() => {
-            window.location.replace( process.env.REACT_APP_EMBY_URL )
-        }, [])
     }
 
     const styleCenter = {
