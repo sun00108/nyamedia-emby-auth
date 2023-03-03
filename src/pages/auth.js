@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { Card, Button } from '@douyinfe/semi-ui';
+import {Card, Button, Layout, Row, Col} from '@douyinfe/semi-ui';
 import { Form } from '@douyinfe/semi-ui';
 
 import axios from 'axios'
+import AppHeader from "../components/header";
+import {Outlet} from "react-router-dom";
 
 export default function Auth() {
 
@@ -36,18 +38,33 @@ export default function Auth() {
         height: '100vh',
     }
 
+    const { Header, Footer, Content, Sider } = Layout;
+
     return (
-        <div style={styleCenter}>
-            <Card>
-                <h1>注册<span style={{ color: process.env.REACT_APP_COLOR }}> Nyamedia Emby Service</span></h1>
-                <Form layout='vertical'>
-                    <Form.Input field='username' label='用户名' onChange={(e) => setUsername(e)}/>
-                    <Button type="primary" htmlType="submit" className="btn-margin-right" style={{margin: '0 auto', width: '100%'}} onClick={() => submitEmbyRegister()}>注册</Button>
-                    <br/><br/>
-                    <span>请注意：注册完成后会自动跳转，请修改您的账户密码（默认为空密码）。</span>
-                </Form>
-            </Card>
-        </div>
+        <Layout className="components-layout-demo">
+            <AppHeader />
+            <Layout>
+                <Content>
+                    <div className={'grid'}>
+                        <Row type={'flex'} justify={'center'}>
+                            <Col span={20}>
+                                <div style={styleCenter}>
+                                    <Card>
+                                        <h1>注册<span style={{ color: process.env.REACT_APP_COLOR }}> Nyamedia Emby Service</span></h1>
+                                        <Form layout='vertical'>
+                                            <Form.Input field='username' label='用户名' onChange={(e) => setUsername(e)}/>
+                                            <Button type="primary" htmlType="submit" className="btn-margin-right" style={{margin: '0 auto', width: '100%'}} onClick={() => submitEmbyRegister()}>注册</Button>
+                                            <br/><br/>
+                                            <span>请注意：注册完成后会自动跳转，请修改您的账户密码（默认为空密码）。</span>
+                                        </Form>
+                                    </Card>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                </Content>
+            </Layout>
+        </Layout>
     )
 
 }
