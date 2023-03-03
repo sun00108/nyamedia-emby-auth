@@ -93,11 +93,11 @@ export default function LibraryAppIndex() {
             </Row>
             <Modal title="新媒体内容请求" visible={addModalVisible} style={{ width: "350px" }}
                 onOk={() => {
-                    setAddModalVisible(false);
                     submitRequestAdd();
                 }}
                 onCancel={() => {
                     setAddLibraryID(0)
+                    setAddNFOSource('')
                     setAddModalVisible(false)
                 }}
                 closeOnEsc={true}
@@ -105,10 +105,10 @@ export default function LibraryAppIndex() {
                 新 媒体内容 请求 - {addLibraryID}
                 <br />
                 <Form layout="vertical">
-                    <Form.Select field="nfo_source" label='元数据信息站'>
-                        <Option value="tmdb" onClick={() => setAddNFOSource('tmdb')}>TMDB</Option>
-                        <Option value="bgmtv" onClick={() => setAddNFOSource('bgmtv')}>BGM.TV</Option>
-                        <Option value="none" onClick={() => setAddNFOSource('none')}>无</Option>
+                    <Form.Select field="nfo_source" label={'元数据信息站 ' + addNFOSource} onChange={(value) => setAddNFOSource(value)}>
+                        <Option value="tmdb">TMDB</Option>
+                        <Option value="bgmtv">BGM.TV</Option>
+                        <Option value="none">无</Option>
                     </Form.Select>
                     <Form.Input
                         field="nfo_id"
